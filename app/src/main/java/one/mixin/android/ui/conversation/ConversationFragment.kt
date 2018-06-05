@@ -45,6 +45,12 @@ import kotlinx.android.synthetic.main.view_title.view.*
 import kotlinx.android.synthetic.main.view_tool.view.*
 import one.mixin.android.MixinApplication
 import one.mixin.android.R
+import one.mixin.android.R.id.chat_et
+import one.mixin.android.R.id.chat_sticker
+import one.mixin.android.R.id.cover
+import one.mixin.android.R.id.input_layout
+import one.mixin.android.R.id.sticker_container
+import one.mixin.android.R.id.tool_view
 import one.mixin.android.RxBus
 import one.mixin.android.api.request.RelationshipAction
 import one.mixin.android.api.request.RelationshipRequest

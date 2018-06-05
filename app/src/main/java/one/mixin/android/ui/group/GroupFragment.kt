@@ -16,6 +16,9 @@ import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_group.*
 import kotlinx.android.synthetic.main.view_title.view.*
 import one.mixin.android.R
+import one.mixin.android.R.id.group_rv
+import one.mixin.android.R.id.search_et
+import one.mixin.android.R.id.title_view
 import one.mixin.android.RxBus
 import one.mixin.android.event.ConversationEvent
 import one.mixin.android.extension.addFragment
