@@ -110,7 +110,7 @@ import one.mixin.android.ui.url.openUrlWithExtraWeb
 import one.mixin.android.ui.wallet.TransactionFragment
 import one.mixin.android.ui.wallet.WalletPasswordFragment
 import one.mixin.android.util.Attachment
-import one.mixin.android.util.AudioPlay
+import one.mixin.android.util.AudioPlayer
 import one.mixin.android.util.DataPackage
 import one.mixin.android.util.Session
 import one.mixin.android.vo.App
@@ -581,8 +581,8 @@ class ConversationFragment : LinkFragment(), OnKeyboardShownListener, OnKeyboard
         if (disposable?.isDisposed == false) {
             disposable?.dispose()
         }
-        if (AudioPlay.isInit) {
-            AudioPlay.instance.stop()
+        if (AudioPlayer.isInit) {
+            AudioPlayer.instance.stop()
         }
     }
 
@@ -719,6 +719,11 @@ class ConversationFragment : LinkFragment(), OnKeyboardShownListener, OnKeyboard
             })
         tool_view.close_iv.setOnClickListener { activity?.onBackPressed() }
         tool_view.delete_iv.setOnClickListener {
+            chatAdapter.selectSet.filter { it.type.endsWith("_AUDIO") }.forEach {
+                if (AudioPlayer.instance.isPlay(it.messageId)) {
+                    AudioPlayer.instance.stop()
+                }
+            }
             chatViewModel.deleteMessages(chatAdapter.selectSet)
             closeTool()
         }
@@ -1482,6 +1487,7 @@ class ConversationFragment : LinkFragment(), OnKeyboardShownListener, OnKeyboard
         }
 
         override fun onRecordStart(audio: Boolean) {
+            AudioPlayer.instance.stop()
             audioRecorder.startRecording()
         }
 
