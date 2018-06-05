@@ -593,13 +593,7 @@ class ConversationFragment : LinkFragment(), OnKeyboardShownListener, OnKeyboard
                 true
             }
             sticker_container.visibility == VISIBLE -> {
-                cover.alpha = 0f
-                sticker_container.visibility = GONE
-                chat_control.stickerStatus = STICKER
-                chat_control.checkSend()
-                chat_control.chat_et.clearFocus()
-                activity?.window?.statusBarColor = Color.TRANSPARENT
-                input_layout.hideCurrentInput(chat_control.chat_et)
+                hideStickerContainer()
                 true
             }
             mediaVisibility -> {
@@ -608,6 +602,16 @@ class ConversationFragment : LinkFragment(), OnKeyboardShownListener, OnKeyboard
             }
             else -> false
         }
+    }
+
+    private fun hideStickerContainer() {
+        cover.alpha = 0f
+        sticker_container.visibility = GONE
+        chat_control.stickerStatus = STICKER
+        chat_control.setSendWithSticker()
+        chat_control.chat_et.clearFocus()
+        activity?.window?.statusBarColor = Color.TRANSPARENT
+        input_layout.hideCurrentInput(chat_control.chat_et)
     }
 
     private fun closeTool() {
@@ -1283,6 +1287,7 @@ class ConversationFragment : LinkFragment(), OnKeyboardShownListener, OnKeyboard
             shadow.fadeIn()
             media_layout.translationY(dip(32).toFloat())
             chat_control.chat_et.hideKeyboard()
+            hideStickerContainer()
             mediaVisibility = true
         }
     }
