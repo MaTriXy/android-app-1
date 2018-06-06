@@ -20,7 +20,6 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.support.v13.view.inputmethod.InputContentInfoCompat
-import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -45,12 +44,6 @@ import kotlinx.android.synthetic.main.view_title.view.*
 import kotlinx.android.synthetic.main.view_tool.view.*
 import one.mixin.android.MixinApplication
 import one.mixin.android.R
-import one.mixin.android.R.id.chat_et
-import one.mixin.android.R.id.chat_sticker
-import one.mixin.android.R.id.cover
-import one.mixin.android.R.id.input_layout
-import one.mixin.android.R.id.sticker_container
-import one.mixin.android.R.id.tool_view
 import one.mixin.android.RxBus
 import one.mixin.android.api.request.RelationshipAction
 import one.mixin.android.api.request.RelationshipRequest
@@ -1007,6 +1000,10 @@ class ConversationFragment : LinkFragment(), OnKeyboardShownListener, OnKeyboard
                     context?.toast(R.string.error_image)
                 })
         }
+    }
+
+    override fun onCancel() {
+        chat_control.cancelExternal()
     }
 
     override fun sendAudio(file: File, duration: Long, waveForm: ByteArray) {
