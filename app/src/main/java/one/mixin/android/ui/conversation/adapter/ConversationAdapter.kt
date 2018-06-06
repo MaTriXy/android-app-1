@@ -34,13 +34,15 @@ import one.mixin.android.ui.conversation.holder.WaitingHolder
 import one.mixin.android.vo.MessageCategory
 import one.mixin.android.vo.MessageItem
 import one.mixin.android.vo.MessageStatus
+import one.mixin.android.vo.User
 import one.mixin.android.vo.create
 import one.mixin.android.widget.MixinStickyRecyclerHeadersAdapter
 
 class ConversationAdapter(
     private val keyword: String?,
     private val onItemListener: OnItemListener,
-    private val isGroup: Boolean
+    private val isGroup: Boolean,
+    private val recipient: User?
 ) :
     PagedListAdapter<MessageItem, RecyclerView.ViewHolder>(diffCallback),
     MixinStickyRecyclerHeadersAdapter<TimeHolder> {
@@ -189,7 +191,7 @@ class ConversationAdapter(
     }
 
     private fun isFirst(position: Int): Boolean {
-        return if (isGroup) {
+        return if (isGroup || (recipient != null && recipient.isBot() && recipient.userId != getItem(position)?.userId)) {
             val currentItem = getItem(position)
             val nextItem = next(position)
             when {

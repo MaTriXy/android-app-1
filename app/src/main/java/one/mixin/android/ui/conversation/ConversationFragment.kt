@@ -185,7 +185,7 @@ class ConversationFragment : LinkFragment(), OnKeyboardShownListener, OnKeyboard
         ViewModelProviders.of(this, viewModelFactory).get(ConversationViewModel::class.java)
     }
     private val chatAdapter: ConversationAdapter by lazy {
-        ConversationAdapter(keyword, onItemListener, isGroup)
+        ConversationAdapter(keyword, onItemListener, isGroup, recipient)
     }
 
     private val appAdapter: AppAdapter by lazy {
